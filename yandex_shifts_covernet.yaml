@@ -1,0 +1,45 @@
+# Basic parameters
+name: yandex_shifts
+agent_types:
+  - vehicle
+  - pedestrian
+ego_agent_type: vehicle
+dt: 0.2 # [s]
+
+# Map parameters
+n_map_channels: ${len:${.renderer.renderers_groups[1].renderers[0].road_graph}}
+
+# Renderer parameters
+renderer:
+    feature_map_params:
+        rows: 128
+        cols: 128
+        resolution: 1
+    renderers_groups:
+      - time_grid_params:
+            start: 0
+            stop: 0
+            step: 1
+        renderers:
+          - vehicles:
+              - occupancy
+              - velocity
+              - acceleration
+              - yaw
+          - pedestrians:
+              - occupancy
+              - velocity
+      - time_grid_params:
+            start: 0
+            stop: 0
+            step: 1
+        renderers:
+          - road_graph:
+              - crosswalk_occupancy
+              - crosswalk_availability
+              - lane_availability
+              - lane_direction
+              - lane_occupancy
+              - lane_priority
+              - lane_speed_limit
+              - road_polygons
